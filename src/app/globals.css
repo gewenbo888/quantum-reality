@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #03040a;
+  --synapse: #9a6bff;
+  --pulse: #3fc6f5;
+  --awaken: #f2c45a;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--void);
+  color: #e7ebff;
+  overflow-x: hidden;
+}
+
+/* The void gradient sits beneath the WebGL canvas as a fallback. */
+.void-bg {
+  background:
+    radial-gradient(1200px 800px at 50% -10%, rgba(90, 60, 200, 0.18), transparent 60%),
+    radial-gradient(900px 700px at 85% 20%, rgba(40, 140, 200, 0.1), transparent 55%),
+    radial-gradient(1000px 900px at 10% 90%, rgba(160, 110, 255, 0.08), transparent 60%),
+    var(--void);
+}
+
+/* Language cross-fade */
+.lang-fade {
+  animation: langfade 0.5s ease;
+}
+@keyframes langfade {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+.zh {
+  font-family: var(--font-zh, "Noto Serif SC"), serif;
+  letter-spacing: 0.01em;
+}
+
+/* Glass panel */
+.glass {
+  background: linear-gradient(180deg, rgba(20, 24, 55, 0.5), rgba(8, 10, 24, 0.35));
+  border: 1px solid rgba(154, 107, 255, 0.14);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: inset 0 1px 0 rgba(205, 178, 255, 0.07), 0 24px 70px -34px rgba(0, 0, 0, 0.9);
+}
+
+/* Big cinematic gradient text */
+.aurora-text {
+  background: linear-gradient(100deg, #f4f6ff 0%, #cdb2ff 30%, #a6ecff 55%, #fbe9b8 80%, #f4f6ff 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 14s linear infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 220% 50%;
+  }
+}
+
+/* Thin section divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(154, 107, 255, 0.4), transparent);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #05060f;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #5b3fd6, #1f9fd6);
+  border-radius: 99px;
+}
+::selection {
+  background: rgba(154, 107, 255, 0.35);
+  color: #fff;
+}
+
+/* Vertical scroll hint line */
+.scroll-line {
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(180deg, transparent, rgba(166, 236, 255, 0.7));
+  position: relative;
+  overflow: hidden;
+}
+.scroll-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: #a6ecff;
+  animation: scrolldot 2.4s ease-in-out infinite;
+}
+@keyframes scrolldot {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(320%);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
